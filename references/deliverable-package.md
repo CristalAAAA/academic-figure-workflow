@@ -8,12 +8,15 @@ paper-wide assets into it.
 ```text
 figure/<figure-id>/
 ├── final/
-│   ├── <figure-id>.svg       # canonical, editable composition
+│   ├── <figure-id>.svg       # editable vector export
 │   ├── <figure-id>.png       # target-size or specified-DPI raster
 │   └── <figure-id>.pdf       # same composition; vector when possible
-├── frameworks/
-│   ├── <figure-id>_framework.svg
-│   └── <figure-id>_framework_preview.png
+├── previews/
+│   └── <figure-id>_preview.png
+├── source/                    # optional when source already lives under repo scripts/
+│   └── <figure-id>.py|svg
+├── frameworks/               # optional, only for a hand-authored SVG workflow
+│   └── <figure-id>_framework.svg
 ├── assets/
 │   ├── imagegen/              # accepted, no-text/no-watermark raster assets
 │   └── data/                  # optional deterministic plot exports
@@ -27,10 +30,14 @@ figure/<figure-id>/
 
 ## Source and asset rules
 
-1. The final SVG must contain selectable SVG text and editable vector geometry.
-   It may reference local images during development, but also provide a
-   standalone variant with sanitized data-URI images (or document the exact
-   portable asset directory). Never call a flattened PNG an editable SVG.
+1. Record one canonical composition source. Prefer Python/Matplotlib for dense
+   method layouts, aligned curves, or data-bearing panels; use direct SVG when
+   it is genuinely the simpler source. If the source lives under repository
+   `scripts/`, record its exact path and revision instead of duplicating it.
+   The final SVG must contain selectable text and editable vector geometry. It
+   may reference local images during development, but also provide a standalone
+   variant with sanitized data-URI images (or document the exact portable asset
+   directory). Never call a flattened PNG an editable SVG.
 2. Every imagegen asset gets its own file and provenance record: prompt,
    generation mode, dimensions, color mode/alpha status, checksum, and the
    intended `data-role`. Reject baked text, watermark, logo, chart, axis, or
@@ -40,10 +47,12 @@ figure/<figure-id>/
    uncertainty, and transform. Prefer imported SVG/PDF paths; if a raster
    export is unavoidable, record native pixels and effective DPI and keep the
    plotting code beside the package.
-4. A package README must state the renderer/export command, target physical
-   size, font/fallback, and which layers are safe to edit independently. The
-   default is Times New Roman; any deliberately different display font belongs
-   only to an explicitly selected style layer and must be recorded.
+4. A package README must state the canonical source, interpreter/renderer and
+   export command, target physical size, font/fallback, and which layers are
+   safe to edit independently. For Matplotlib, retain SVG text with
+   `svg.fonttype="none"` and embed TrueType fonts in PDF. The default is Times
+   New Roman; any deliberately different display font belongs only to an
+   explicitly selected style layer and must be recorded.
 
 ## Package-level QA
 
@@ -54,8 +63,8 @@ Before delivery, verify that:
 - all local image references resolve (or the standalone SVG is self-contained),
   and no remote URL, script, event handler, external font, or unsafe XML entity
   remains;
-- SVG text is present for labels and chart annotations, IDs/data roles are
-  unique, and numerical marks are traceable to the recorded data/code;
+- SVG text is present for labels and chart annotations, IDs are unique, and
+  numerical marks are traceable to the recorded data/code;
 - the target-column raster passes clipping, readability, grayscale, CVD,
   contrast, and effective-DPI checks;
 - the manifest has no placeholder paths, hashes, `n: 0`, or `WARN` status for a

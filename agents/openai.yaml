@@ -1,4 +1,4 @@
 interface:
   display_name: "Academic Figure Workflow"
   short_description: "Build publication-ready academic figures"
-  default_prompt: "Use $academic-figure-workflow to plan and revise a scientific figure as an editable SVG package: use ImageGen only for no-text illustrative assets, use Python/project code for real data geometry, and deliver organized SVG/PNG/PDF, assets, prompts, manifest, archive, and QA."
+  default_prompt: "Use $academic-figure-workflow to build a publication-ready scientific figure from an editable vector source, preferring Python/Matplotlib for dense layouts or curves, and deliver organized SVG/PNG/PDF, assets, provenance, and QA."
