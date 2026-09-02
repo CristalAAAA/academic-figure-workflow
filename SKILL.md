@@ -1,0 +1,171 @@
+---
+name: academic-figure-workflow
+description: "Build or revise publication-ready scientific figures—including motivation/method diagrams, data-bearing experimental result panels, and accessible semantic palettes—from the user's narrative and data/code: plan the story, construct a deterministic SVG framework, optionally add non-quantitative raster illustrations, and export/QA PNG/SVG/PDF. Do not invent or alter quantitative results."
+metadata:
+  short-description: Publication-ready scientific figure workflow
+---
+
+# Academic Figure Workflow
+
+Use this skill for motivation figures, method overviews, conceptual diagrams, data-bearing result figures, and other paper figures that mix exact scientific structure with optional illustrative elements. The goal is a figure whose meaning is immediately readable at the target paper size and whose geometry remains editable and reproducible.
+
+## Governing principle
+
+Separate semantic geometry from visual generation:
+
+- SVG (or another vector layout source) owns the canvas, panel geometry, alignment, arrows, guides, axes, labels, typography, legends, and any exact curves or tables.
+- ImageGen owns illustrative raster assets such as realistic people, task objects, video frames, and scene/icon cutouts.
+- Never ask ImageGen to typeset exact text, mathematical notation, tick labels, axes, or a multi-panel scientific layout. Generated lettering and geometry are not reliable enough for those elements.
+- Never use ImageGen to create quantitative data, traces, confidence intervals, scientific annotations, or evidence for a claim. Quantitative content must come from user-provided data/code or an explicitly marked schematic.
+- Keep the source figure and generated assets versioned. Do not overwrite a prior candidate while iterating.
+
+## 1. Audit the context before drawing
+
+Inspect only the user-authorized paper source, repository figure tree, existing figures, and code/results that the figure summarizes. Skip `.env`, credential/key files, secrets, and unrelated data. Do not download dependencies or upload project material merely to inspect style; browse public references only when the user explicitly permits it. Identify the target venue, column width, aspect-ratio constraints, required fonts, and the location where the figure is included in TeX. If the repository already has a visual language, reuse its colors, line weights, corner radii, and terminology.
+
+Write down one sentence for the figure's takeaway and the exact comparison or causal relation it must show. Turn that sentence into a reading order (for example, stimulus/video → coarse behavioral outcome → fine-grained physiological signal). If a proposed panel cannot be described concretely or does not advance that reading order, remove it rather than adding a decorative middle panel.
+
+For temporal or granularity claims, define a shared coordinate system before drawing: every clip boundary, dashed correspondence line, segment box, and signal interval must use the same time positions. Make “video-level” and “segment-level” visibly different in aggregation (one summary box or icon versus multiple aligned bins/traces), not only through labels.
+
+## Style selection: topic first, venue as calibration
+
+Do not default every asset to photorealism. Choose a style preset from the scientific topic, the abstraction level of the claim, the target audience, and the paper's existing figures. When the user requests a venue survey and permits browsing, use recent papers from the target venue (for example, NeurIPS, ICLR, SIGIR, KDD, or WWW) as a small calibration set for spacing, palette, and visual density—not as a fixed venue template; otherwise use local examples only. When the style choice is non-obvious, read [references/style-catalog.md](references/style-catalog.md).
+
+Use these presets as starting points, then state the chosen preset in the figure brief:
+
+| Preset | Good fit | Visual treatment |
+| --- | --- | --- |
+| Analytical / minimal vector | theory, algorithms, ablations, quantitative comparisons | white space, geometric shapes, 1–3 accents, thin connectors, exact plots and notation in SVG |
+| Minimal flat infographic | motivation, taxonomy, coarse-versus-fine comparisons | simple flat icons, restrained color blocks, generous spacing, one visual metaphor per claim |
+| Technology / system | recommender, IR, LLM, platform, data or software pipelines | modular cards, cool accent palette, device/UI/network cues, explicit left-to-right data flow |
+| Scientific realistic | EEG, neuroscience, medicine, human sensing, robotics, physical experiments | realistic subject/device/scene cutouts paired with exact vector signals, axes, and annotations |
+| Hand-drawn / editorial | behavioral, social, cognitive, educational, or story-led concepts | intentional ink/line-art texture and warm accents; keep structure and labels vector-clean |
+| Technical 3D / rendered | hardware, geometry, molecules, mechanisms, physical systems | controlled 3D materials and lighting, simplified background, precise callouts in SVG |
+
+The preset governs only non-quantitative illustrative assets. A hard-science topic such as EEG may call for a realistic participant and headset, while the EEG traces themselves remain deterministic SVG or code-rendered signals. Mix styles only when the contrast carries meaning (for example, a realistic stimulus beside a minimal measured trace); do not mix them accidentally.
+
+Lock one primary preset (and, if needed, one explicitly named secondary layer) in the brief before calling ImageGen. For a venue/style survey, inspect a small set of recent, relevant figures and record the selected principles—palette, density, line treatment, and level of realism—in `prompts/`; do not copy a paper's artwork or assume that all papers at a venue share one look.
+
+For experimental-result figures, also read [references/experimental-figure-catalog.md](references/experimental-figure-catalog.md) when the question involves choosing a chart form, and read [references/palette-library.md](references/palette-library.md) only after the data encoding is fixed. These references are a decision aid, not a license to copy a paper's artwork.
+
+## 2. Experimental results: encode the evidence before styling it
+
+Use this branch whenever a mark represents a measured or derived number. It is deliberately separate from the intro/main-figure branch: a result figure should make the comparison, uncertainty, sample size, and units inspectable before it is made attractive.
+
+1. **Freeze a data contract (G0).** Record the source table or plotting script and commit/hash (if the data is outside Git, use an immutable file SHA-256 or snapshot ID plus the script version), observation unit, dataset/task, metric and units, direction (higher/lower is better), aggregation, number of runs or participants, uncertainty definition (SD/SEM/CI/bootstrap), statistical test and correction, missing values, and any log or normalization transform. Never infer these from a screenshot.
+2. **Name the analytical question.** Choose a chart archetype from [the catalog](references/experimental-figure-catalog.md): comparison, change over an ordered axis, component effect, sensitivity, distribution, relationship/trade-off, error structure, spatial/time-frequency structure, qualitative evidence grid, user study, or efficiency/scaling. If two questions compete, split them into panels with shared scales instead of layering incompatible encodings.
+3. **Generate all data-bearing geometry deterministically.** Let the project's plotting code or a data-to-SVG script produce points, bars, intervals, ribbons, heatmap cells, curves, ticks, colorbars, and table values. Keep raw observations or a reproducible aggregation next to the source. Use only installed or user-provided plotting tools; do not silently install packages/fonts or download dependencies. Read only the authorized columns and exclude PII or secret fields from prompts and manifests. ImageGen may supply a non-quantitative context thumbnail, but must never supply a number, trace, confidence band, axis, legend, or qualitative evidence claimed as an experimental result.
+4. **Make uncertainty and baselines visible.** Prefer dot/interval or line/ribbon encodings for close comparisons; show `n` and the uncertainty definition; use a neutral baseline and one deliberate accent for the proposed method. Do not hide variability behind a single mean, connect unordered categories, truncate a bar axis without an explicit difference/ratio label, or use a dual axis merely to fit more series.
+5. **Choose a semantic palette after encoding.** Use a qualitative palette for nominal methods, a sequential palette for ordered magnitude, and a diverging palette only when a meaningful midpoint exists. Read [the palette library](references/palette-library.md) for vetted starting points. Use color together with position, line style, marker shape, or direct labels; never make red/green or hue alone carry a critical conclusion. Treat Xiaohongshu-inspired/editorial colors as non-quantitative accents unless they pass the same CVD, grayscale, contrast, and print checks as any scientific palette.
+6. **Compose and review at target size.** Use small multiples with shared limits and one legend when they improve comparisons; order panels by the claim; put exact units and transforms next to the relevant axes; annotate only evidence that is also present in the data. A decorative raster cannot rescue an ambiguous chart.
+
+The experimental branch still uses the SVG framework, revision freeze, export, and QA rules below. The key invariant is that a later palette or layout change must not alter the underlying numerical geometry.
+
+## 3. Lock a storyboard and SVG framework
+
+Create a small, editable SVG framework first. It should render meaningfully even with placeholder rectangles for raster assets.
+
+The framework should:
+
+1. Set an explicit `viewBox` and physical target size. Derive final pixel dimensions from the requested/venue DPI; a 2× render is only a preview aid, not a substitute for an effective-DPI requirement.
+2. Establish named layers or groups with stable IDs or `data-role` values for background, raster placeholders, structural lines, charts/signals, and text. Keep shared colors, line widths, font sizes, and spacing in a small style-token block so local revisions do not drift geometry.
+3. Use Times New Roman (with an explicit fallback) consistently for all figure text when that is the paper style. Keep text as SVG text, never baked into a generated image.
+4. Put exact axes, ticks, legends, arrows, dashed guides, clip boundaries, and curves in SVG (or import them deterministically from the project's plotting code). Use shared x-coordinates for aligned time elements rather than eyeballing them.
+5. Leave deliberate transparent or neutral margins around generated subjects. A clipping path may enforce a planned crop, but must not conceal an accidentally cropped person or object.
+6. Use a restrained palette and enough contrast for grayscale or print viewing. Keep labels short and place each label beside the visual relationship it explains.
+
+Render and inspect this framework before generating assets. Fix confusing hierarchy or spacing at this stage; do not try to solve a semantic layout problem with a prettier raster.
+
+## 4. Generate topic-appropriate assets with ImageGen
+
+Generate assets separately, one visual role per prompt, and then place them into the framework. Apply the selected style preset consistently to all illustrative assets. Follow the `imagegen` skill's attachment rules when editing an existing asset: inspect a local image first, use its local path when available, and preserve identity or composition only when the user requests it.
+
+For each asset, specify:
+
+- the subject and action, camera/view direction, crop intent, and approximate aspect ratio;
+- the selected medium/style (minimal flat, hand-drawn, realistic, technology, or technical 3D) and how it matches neighboring assets;
+- transparent background and generous margins for cutouts, when the asset will be composited over SVG;
+- “no text, no labels, no chart, no watermark” unless text is deliberately part of the scene.
+
+Record provenance for every accepted asset (source or synthetic/illustrative status, prompt, generation mode, dimensions, alpha status, and checksum). Do not put private manuscript data, sensitive recordings, credentials, or identifying personal information into a prompt or upload them to an external service. Use the built-in ImageGen tool when available and follow its attachment rules; if the required tool is unavailable, stop and report the limitation instead of silently switching to an unapproved API or CLI.
+
+Prefer a complete subject with safe margins over a dramatic close crop. After generation, verify the file mode and alpha channel: a gray checkerboard or black field visibly painted into the pixels is not transparency. If an asset is cropped or has a baked background, regenerate or use a dedicated background-extraction edit before compositing. Do not use Python as a substitute for ImageGen when the task is to create or edit the visual asset.
+
+For video thumbnails or task icons, generate a small set of coherent static frames/variants and fit them independently into the SVG's exact clip rectangles. This workflow produces still assets, not an actual video. The generated image must not determine the panel width or the location of scientific annotations.
+
+More focused prompt patterns are in [references/prompt-templates.md](references/prompt-templates.md); read that file only when a prompt needs help.
+
+## 5. Composite without losing precision
+
+Embed the generated files into the SVG using explicit, portable references. Relative paths are acceptable for an editable development source, but a delivered standalone SVG should inline sanitized local image data (or be accompanied by a clearly named package variant containing all referenced assets). Fit each asset with an explicit box and `preserveAspectRatio`; use a clip path only where the storyboard specifies the crop. Redraw frame borders, separators, dashed correspondence lines, axes, labels, and legends after raster layers so they remain crisp and readable.
+
+Before delivering an SVG or PDF, sanitize the source: reject `script`, `iframe`, `foreignObject`, `DOCTYPE`/external entities, `on*` event attributes, remote URLs, remote fonts, and unapproved external `href`s. Allow only the local image data and vector elements required by the brief. Report any removed or blocked content instead of silently trusting it.
+
+For aligned feedback figures, use the same x-boundaries for the upper video clips and lower segment-level boxes/traces. A visible dashed line or shared vertical guide should make the correspondence discoverable without reading the caption. Show coarse feedback as a single aggregate outcome (such as watch time or skip) and fine feedback as multiple time-localized bins or signal intervals.
+
+Keep raster assets out of the text/axis layer. If a generated asset changes, replace only its `<image>` reference or bounded layer; do not regenerate the entire figure and thereby alter unrelated pixels.
+
+## 6. Revision protocol: freeze everything else
+
+When the user asks for a local correction, first define the authorized region and the invariant region. Create a new versioned filename, make the smallest possible SVG or asset change, and leave all unmentioned coordinates, wording, colors, and raster crops untouched. Typical local fixes include:
+
+- a subject cutout: regenerate or replace only that cutout, then fit it with safe left/right margins;
+- a label artifact: clear only the old label's bounding area and redraw the label once in SVG;
+- an alignment issue: change the shared anchor coordinates, not each panel by eye.
+
+After rendering, compare old and new images outside the authorized region. A pixel-difference bounding box or an equivalent mask is useful evidence that “only this changed” was honored. Archive the old version rather than deleting it.
+
+If the source data, a shared axis/scale, or a global color token changes, it can legitimately affect pixels outside the named region; declare that conflict before editing and ask for authorization to update the dependent regions. The strict external-region diff applies to bounded asset/label edits, not to a recomputed quantitative plot.
+
+## Quality gates
+
+Treat the workflow as staged gates rather than one uninterrupted generation:
+
+- **G0 — brief:** the takeaway, evidence type (measured, derived, schematic, or illustrative), target physical size, and data/source paths are known.
+- **G1 — storyboard:** panel roles, reading order, and shared alignment anchors are explicit.
+- **G2 — framework:** the SVG parses and renders; dimensions, IDs, fonts, axes, and geometry pass inspection before raster assets are added.
+- **G3 — assets:** each raster has provenance, adequate resolution, genuine alpha when requested, and no semantic or text artifacts.
+- **G4 — revision:** the requested edit is bounded and the invariant-region diff is clean.
+- **G5 — export:** PNG/SVG/PDF agree visually, the PDF page boundary and embedded image are checked, and the figure passes target-column/grayscale review.
+- **G6 — package:** final files, prompts/manifest, version history, and manuscript integration are reproducible.
+
+If a gate fails, stop at that gate and report the concrete blocker; do not claim that later exports or scientific validation succeeded. Automated checks support but do not replace a human review of whether the visual actually supports the paper's claim.
+
+## 7. Publication QA and exports
+
+Check both the full-resolution artifact and a rasterization at the actual paper width. At minimum verify:
+
+- the one-sentence takeaway and reading order are obvious without the caption;
+- coarse versus fine granularity is visual, not merely textual;
+- all temporal boundaries and correspondence guides align;
+- no person, hand, phone, icon, or wire is unintentionally clipped;
+- no generated checkerboard, malformed lettering, duplicate label, or font fallback is visible;
+- text, axes, and traces remain legible in the target column and in grayscale;
+- linked assets resolve from the final SVG's directory (or are safely inlined), and the output is reproducible;
+- the SVG is well-formed XML with unique IDs, no `NaN`/`Inf`, no unintended overflow, and fonts that are actually installed and appropriately licensed;
+- the physical width/height and effective DPI match the user or venue requirement; check contrast, grayscale, color-vision accessibility, minimum text size, and minimum line width.
+
+Report QA status as `PASS`, `WARN`, or `BLOCKER`. Treat data/claim mismatch, missing required labels or units, unintended clipping, unreadable text, unsafe SVG content, and unverified quantitative geometry as P0 blockers. Treat aesthetic preferences or a non-ideal but legible style as warnings unless the user marks them as requirements.
+
+Use the repository's directory conventions where possible. A practical layout is:
+
+```text
+figure/<topic>/
+├── final/       # only the current deliverable(s)
+├── frameworks/  # editable SVG skeletons and framework renders
+├── assets/      # accepted generated assets
+├── archive/     # superseded figures and intermediate assets
+└── prompts/     # narrative, asset, and revision prompts/metadata
+```
+
+Use [references/figure-manifest.example.yaml](references/figure-manifest.example.yaml) as a minimal machine-readable record for the data contract, style/palette decisions, asset provenance, exports, and QA status. It is explicitly a template: replace every placeholder path/hash, `n: 0`, `WARN` status, and example metric before a measured figure is delivered; any remaining placeholder is a G0/G5 blocker.
+
+Update a TeX include and compile only when the user asks for manuscript integration (use XeLaTeX/LuaLaTeX when `fontspec` is present). Prefer SVG→PDF when the renderer preserves vector paths and selectable text. If the source is raster-only, a PNG→PDF export is a clearly labeled raster fallback: embed the native pixels losslessly with a tight page boundary and an explicit effective DPI (typically 300–600), and do not claim that upsampling creates new detail. Verify the embedded image dimensions and PDF page boundary with a PDF inspection tool when available.
+
+Deliver the current PNG, SVG, and standalone PDF paths, plus the prompt/version used for any generated asset. State what was changed and, for a constrained revision, how the unchanged-region check was performed.
+
+## Scope boundary
+
+Use this workflow for figures where generated visual assets and exact scientific layout interact. For a pure data plot, let the project's plotting code generate all numerical geometry and use this skill only for composition, typography, export, and QA. For a logo, UI mockup, or general illustration with no paper-specific alignment/typography requirements, use the more appropriate design or image workflow instead.
+
+Do not fabricate measurements, sample sizes, statistical significance, axis ranges, citations, or visual evidence. Do not publish a manuscript, dataset, or generated asset to an external repository unless the user has explicitly authorized that publication and its visibility.

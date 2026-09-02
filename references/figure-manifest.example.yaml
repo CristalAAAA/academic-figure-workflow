@@ -1,0 +1,57 @@
+# Copy this file into a figure/<topic>/prompts/ directory and edit it for each version.
+# This is a template: do not submit it unchanged as a measured result manifest.
+# Keep paths relative to the figure package; never put credentials or private recordings here.
+template: true
+figure_id: example-topic-v01
+status: draft
+takeaway: "State the single claim this figure should make."
+evidence_type: measured  # measured | derived | schematic | illustrative
+target:
+  venue: venue-or-journal
+  physical_width_mm: 85
+  physical_height_mm: 55
+  raster_dpi: 600
+  font_family: "Times New Roman"
+source:
+  data: path/to/validated-results.csv
+  plotting_code: path/to/plot_figure.py
+  commit: git-commit-or-data-hash
+  observation_unit: subject-or-example
+  metric: metric name and units
+  direction: higher-is-better
+  aggregation: mean-over-subjects
+  uncertainty: 95% bootstrap CI
+  n: 0
+storyboard:
+  panels:
+    - id: a
+      role: primary-comparison
+      archetype: dot-interval
+      shared_scale: metric-axis-1
+  reading_order: [a]
+style:
+  primary_preset: analytical-minimal-vector
+  secondary_layer: none
+  survey_notes: "Record permitted venue references and the principle adapted."
+palette:
+  family: qualitative
+  name: Okabe-Ito
+  version: source-version-or-commit
+  roles:
+    proposed: "#0072B2"
+    baseline: "#666666"
+  sampling_rule: discrete-source-order
+  checks: [grayscale, protanopia, deuteranopia, tritanopia, print]
+assets: []
+exports:
+  svg: final/figure.svg
+  png: final/figure.png
+  pdf: final/figure.pdf
+qa:
+  status: WARN
+  checks:
+    - svg-xml-and-unique-ids
+    - target-column-raster
+    - effective-dpi
+    - no-unintended-clipping
+  notes: "Replace the example status and n after the actual checks."

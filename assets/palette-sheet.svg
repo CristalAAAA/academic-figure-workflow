@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1060" viewBox="0 0 1600 1060" role="img" aria-labelledby="title desc">
+  <title id="title">Scientific figure palette reference</title>
+  <desc id="desc">Qualitative, diverging, sequential, and editorial palette swatches with hexadecimal values.</desc>
+  <rect width="1600" height="1060" fill="#FFFFFF"/>
+  <g font-family="Times New Roman, Times, serif" fill="#222222">
+    <text x="40" y="52" font-size="30" font-weight="bold">Scientific figure palette reference</text>
+    <text x="40" y="82" font-size="16" fill="#555555">Choose the semantic family first; test the final figure in grayscale and common CVD simulations.</text>
+  </g>
+  <g font-family="Times New Roman, Times, serif" font-size="17" fill="#222222">
+    <text x="40" y="132" font-weight="bold">Qualitative</text>
+    <text x="40" y="186" font-weight="bold">Okabe–Ito</text>
+    <text x="40" y="240" font-weight="bold">Paul Tol Bright</text>
+    <text x="40" y="294" font-weight="bold">Paul Tol Muted</text>
+    <text x="40" y="348" font-weight="bold">Tol High Contrast</text>
+    <text x="40" y="402" font-weight="bold">ColorBrewer Set2</text>
+    <text x="40" y="456" font-weight="bold">ColorBrewer Dark2</text>
+    <text x="40" y="510" font-weight="bold">ColorBrewer Paired</text>
+    <text x="40" y="564" font-weight="bold">Seaborn Colorblind</text>
+    <text x="40" y="618" font-weight="bold">IBM Carbon</text>
+    <text x="40" y="690" font-weight="bold">Diverging</text>
+    <text x="40" y="744" font-weight="bold">RdBu (centered)</text>
+    <text x="40" y="798" font-weight="bold">BrBG (centered)</text>
+    <text x="40" y="870" font-weight="bold">Sequential</text>
+    <text x="40" y="924" font-weight="bold">Viridis anchors</text>
+    <text x="40" y="978" font-weight="bold">Editorial accent</text>
+  </g>
+  <g stroke="#FFFFFF" stroke-width="2">
+    <!-- swatch helper geometry is intentionally explicit so the sheet stays portable -->
+    <g transform="translate(320,160)">
+      <rect width="88" height="34" fill="#000000"/><rect x="88" width="88" height="34" fill="#E69F00"/><rect x="176" width="88" height="34" fill="#56B4E9"/><rect x="264" width="88" height="34" fill="#009E73"/><rect x="352" width="88" height="34" fill="#F0E442"/><rect x="440" width="88" height="34" fill="#0072B2"/><rect x="528" width="88" height="34" fill="#D55E00"/><rect x="616" width="88" height="34" fill="#CC79A7"/>
+    </g>
+    <g transform="translate(320,214)">
+      <rect width="88" height="34" fill="#4477AA"/><rect x="88" width="88" height="34" fill="#EE6677"/><rect x="176" width="88" height="34" fill="#228833"/><rect x="264" width="88" height="34" fill="#CCBB44"/><rect x="352" width="88" height="34" fill="#66CCEE"/><rect x="440" width="88" height="34" fill="#AA3377"/><rect x="528" width="88" height="34" fill="#BBBBBB"/>
+    </g>
+    <g transform="translate(320,268)">
+      <rect width="88" height="34" fill="#CC6677"/><rect x="88" width="88" height="34" fill="#332288"/><rect x="176" width="88" height="34" fill="#DDCC77"/><rect x="264" width="88" height="34" fill="#117733"/><rect x="352" width="88" height="34" fill="#88CCEE"/><rect x="440" width="88" height="34" fill="#882255"/><rect x="528" width="88" height="34" fill="#44AA99"/><rect x="616" width="88" height="34" fill="#999933"/><rect x="704" width="88" height="34" fill="#AA4499"/>
+    </g>
+    <g transform="translate(320,322)">
+      <rect width="88" height="34" fill="#004488"/><rect x="88" width="88" height="34" fill="#DDAA33"/><rect x="176" width="88" height="34" fill="#BB5566"/>
+    </g>
+    <g transform="translate(320,376)">
+      <rect width="88" height="34" fill="#66C2A5"/><rect x="88" width="88" height="34" fill="#FC8D62"/><rect x="176" width="88" height="34" fill="#8DA0CB"/><rect x="264" width="88" height="34" fill="#E78AC3"/><rect x="352" width="88" height="34" fill="#A6D854"/><rect x="440" width="88" height="34" fill="#FFD92F"/><rect x="528" width="88" height="34" fill="#E5C494"/><rect x="616" width="88" height="34" fill="#B3B3B3"/>
+    </g>
+    <g transform="translate(320,430)">
+      <rect width="88" height="34" fill="#1B9E77"/><rect x="88" width="88" height="34" fill="#D95F02"/><rect x="176" width="88" height="34" fill="#7570B3"/><rect x="264" width="88" height="34" fill="#E7298A"/><rect x="352" width="88" height="34" fill="#66A61E"/><rect x="440" width="88" height="34" fill="#E6AB02"/><rect x="528" width="88" height="34" fill="#A6761D"/><rect x="616" width="88" height="34" fill="#666666"/>
+    </g>
+    <g transform="translate(320,484)">
+      <rect width="88" height="34" fill="#A6CEE3"/><rect x="88" width="88" height="34" fill="#1F78B4"/><rect x="176" width="88" height="34" fill="#B2DF8A"/><rect x="264" width="88" height="34" fill="#33A02C"/><rect x="352" width="88" height="34" fill="#FB9A99"/><rect x="440" width="88" height="34" fill="#E31A1C"/><rect x="528" width="88" height="34" fill="#FDBF6F"/><rect x="616" width="88" height="34" fill="#FF7F00"/><rect x="704" width="88" height="34" fill="#CAB2D6"/><rect x="792" width="88" height="34" fill="#6A3D9A"/><rect x="880" width="88" height="34" fill="#FFFF99"/><rect x="968" width="88" height="34" fill="#B15928"/>
+    </g>
+    <g transform="translate(320,538)">
+      <rect width="88" height="34" fill="#0173B2"/><rect x="88" width="88" height="34" fill="#DE8F05"/><rect x="176" width="88" height="34" fill="#029E73"/><rect x="264" width="88" height="34" fill="#D55E00"/><rect x="352" width="88" height="34" fill="#CC78BC"/><rect x="440" width="88" height="34" fill="#CA9161"/><rect x="528" width="88" height="34" fill="#FBAFE4"/><rect x="616" width="88" height="34" fill="#949494"/><rect x="704" width="88" height="34" fill="#ECE133"/><rect x="792" width="88" height="34" fill="#56B4E9"/>
+    </g>
+    <g transform="translate(320,592)">
+      <rect width="88" height="34" fill="#6929C4"/><rect x="88" width="88" height="34" fill="#1192E8"/><rect x="176" width="88" height="34" fill="#005D5D"/><rect x="264" width="88" height="34" fill="#9F1853"/><rect x="352" width="88" height="34" fill="#FA4D56"/><rect x="440" width="88" height="34" fill="#570408"/><rect x="528" width="88" height="34" fill="#198038"/><rect x="616" width="88" height="34" fill="#002D9C"/><rect x="704" width="88" height="34" fill="#EE538B"/><rect x="792" width="88" height="34" fill="#B28600"/><rect x="880" width="88" height="34" fill="#009D9A"/><rect x="968" width="88" height="34" fill="#012749"/><rect x="1056" width="88" height="34" fill="#8A3800"/><rect x="1144" width="88" height="34" fill="#A56EFF"/>
+    </g>
+    <g transform="translate(320,718)">
+      <rect width="88" height="34" fill="#67001F"/><rect x="88" width="88" height="34" fill="#B2182B"/><rect x="176" width="88" height="34" fill="#D6604D"/><rect x="264" width="88" height="34" fill="#F4A582"/><rect x="352" width="88" height="34" fill="#FDDBC7"/><rect x="440" width="88" height="34" fill="#F7F7F7"/><rect x="528" width="88" height="34" fill="#D1E5F0"/><rect x="616" width="88" height="34" fill="#92C5DE"/><rect x="704" width="88" height="34" fill="#4393C3"/><rect x="792" width="88" height="34" fill="#2166AC"/><rect x="880" width="88" height="34" fill="#053061"/>
+    </g>
+    <g transform="translate(320,772)">
+      <rect width="88" height="34" fill="#543005"/><rect x="88" width="88" height="34" fill="#8C510A"/><rect x="176" width="88" height="34" fill="#BF812D"/><rect x="264" width="88" height="34" fill="#DFC27D"/><rect x="352" width="88" height="34" fill="#F6E8C3"/><rect x="440" width="88" height="34" fill="#F5F5F5"/><rect x="528" width="88" height="34" fill="#C7EAE5"/><rect x="616" width="88" height="34" fill="#80CDC1"/><rect x="704" width="88" height="34" fill="#35978F"/><rect x="792" width="88" height="34" fill="#01665E"/><rect x="880" width="88" height="34" fill="#003C30"/>
+    </g>
+    <g transform="translate(320,902)">
+      <rect width="88" height="34" fill="#440154"/><rect x="88" width="88" height="34" fill="#482878"/><rect x="176" width="88" height="34" fill="#3E4989"/><rect x="264" width="88" height="34" fill="#31688E"/><rect x="352" width="88" height="34" fill="#26828E"/><rect x="440" width="88" height="34" fill="#35B779"/><rect x="528" width="88" height="34" fill="#FDE725"/>
+    </g>
+    <g transform="translate(320,956)">
+      <rect width="88" height="34" fill="#FF2442"/><rect x="88" width="88" height="34" fill="#FFF4F5"/><rect x="176" width="88" height="34" fill="#F5F5F5"/><rect x="264" width="88" height="34" fill="#333333"/><rect x="352" width="88" height="34" fill="#FDBC5F"/>
+    </g>
+  </g>
+  <g font-family="Times New Roman, Times, serif" font-size="12" fill="#555555">
+    <text x="320" y="1028">Discrete HEX swatches are listed in references/palette-library.md; continuous maps should be sampled by the plotting code.</text>
+  </g>
+</svg>
