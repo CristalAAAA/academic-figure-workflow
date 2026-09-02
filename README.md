@@ -1,52 +1,20 @@
 # Academic Figure Workflow
 
-A Codex skill for publication-ready scientific figures. It separates exact,
-reproducible geometry from optional generated illustration:
+Codex skill for building publication-ready scientific figures as editable,
+reproducible packages. The canonical composition is an SVG: text, axes,
+arrows, legends, and quantitative geometry remain vector/editable; ImageGen is
+used only for separate non-quantitative assets with no text, labels, charts, or
+watermarks; authorized Python/project code supplies real curves and tables.
 
-- SVG or project plotting code owns axes, ticks, labels, legends, alignment,
-  curves, tables, and every quantitative mark.
-- ImageGen is limited to non-quantitative illustrative assets such as people,
-  devices, task icons, and video thumbnails. The selected visual style follows
-  the scientific topic (minimal vector, flat infographic, technology/system,
-  scientific realistic, hand-drawn/editorial, or technical 3D).
-- Experimental figures use a data contract, question-to-chart routing,
-  uncertainty/baseline checks, semantic palettes, and target-size QA before
-  export to SVG/PNG/PDF.
+Each completed figure should have `final/` (current SVG, PNG, PDF),
+`frameworks/` (SVG skeleton and preview), `assets/`, `prompts/` (brief,
+provenance, manifest), and `archive/` (superseded versions). Times New Roman
+is the default font; an explicitly selected hand-drawn/editorial style may use
+a limited display font while scientific labels stay legible and editable.
 
-## Install
-
-Copy this directory into the Codex skills directory:
-
-```text
-~/.codex/skills/academic-figure-workflow/
-```
-
-It is already installed locally at `/root/.codex/skills/academic-figure-workflow`.
-The skill is discoverable automatically and can also be invoked explicitly as
-`$academic-figure-workflow`.
-
-## Contents
-
-- `SKILL.md` — routing, SVG/ImageGen boundary, revision protocol, and QA gates.
-- `references/experimental-figure-catalog.md` — result-figure archetypes,
-  layout recipes, and a permission-gated NeurIPS/ICLR/SIGIR/KDD/WWW sample
-  index (survey snapshot: 2026-09-02).
-- `references/palette-library.md` — 10+ named qualitative, sequential,
-  diverging, and editorial palettes with HEX values and accessibility rules.
-- `assets/palette-sheet.svg` — a portable visual swatch sheet.
-- `references/figure-manifest.example.yaml` — machine-readable template for
-  provenance, data contracts, assets, exports, and QA.
-
-The references are decision aids, not artwork to copy. Re-check paper links,
-licenses, and current palette versions before citing or downloading anything.
-
-## Validate
+Run the validator with:
 
 ```bash
 python /root/.codex/skills/.system/skill-creator/scripts/quick_validate.py \
   /root/.codex/skills/academic-figure-workflow
 ```
-
-This repository contains no manuscript source, EEG recordings, generated paper
-figures, credentials, or private project data. No software/license terms are
-asserted beyond the upstream references' own terms.
